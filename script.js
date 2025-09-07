@@ -138,3 +138,43 @@ console.log("Fase 2 - allenamento;", allenamento)
 const qualificazione = allenamento.filter(fighter => fighter.power >= 2000)
 
 console.log("Fase 3 - qualificazione", qualificazione);
+
+
+if (qualificazione.length % 2 !== 0) {
+    qualificazione.push({
+        name: "robot",
+        weapon: "laser",
+        power: 4000
+    })
+    console.log("partecipanti dispari aggiunto un concorrente all'ultimo secondo");
+
+}
+
+
+//console.log(qualificazione.length);
+
+
+const vincitori = []
+
+
+for (let i = 0; i < qualificazione.length; i = i + 2) {
+    let partecipanteCasa = qualificazione[i]
+    let partecipanteOspite = qualificazione[i + 1]
+
+    if (partecipanteCasa.power >= partecipanteOspite.power) {
+        vincitori.push(partecipanteCasa)
+    } else {
+        vincitori.push(partecipanteOspite)
+    }
+}
+
+
+console.log("Fase 4 - tutti i vincitori del torneo", vincitori);
+
+
+const premiazione = [...vincitori]
+
+const podio = premiazione.sort((a, b) => b.power - a.power).slice(0, 3)
+
+
+console.log("Fase 5 - i vincitori sono", podio);
