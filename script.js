@@ -102,14 +102,17 @@ const weapons = [
 
 
 
-
-
+// Fase 1: assegnazione armi
+// Per ogni fighter associo un arma a caso (senza rimetterla nel pool) e sommiamo i power
 const assegnazioneArmi = fighters.map(fighter => {
+    // Calcolo numero random
     const indiceRandom = Math.floor(Math.random() * weapons.length)
 
     const armaScelta = weapons.splice(indiceRandom, 1)[0]
-
+    //Sommo power del fighter con power dell'arma
     const unionePower = fighter.power + armaScelta.power
+
+    // Restituisco un nuovo oggetto con arma e power aggiornato
     return {
         name: fighter.name,
         power: unionePower,
@@ -121,9 +124,12 @@ const assegnazioneArmi = fighters.map(fighter => {
 
 console.log("Fase 1 - assegnazione armi;", assegnazioneArmi);
 
-
+// Fase 2: allenamento
+// Applico un moltiplicatore casuale (1-100) alla power per simulare l'effetto dell'allenamento
 const allenamento = assegnazioneArmi.map(fighter => {
     const moltiplicatore = Math.floor(Math.random() * 100) + 1
+
+    // Restituisco un nuovo oggetto con arma e power aggiornato
     return {
         name: fighter.name,
         weapon: fighter.weapon,
@@ -134,13 +140,15 @@ const allenamento = assegnazioneArmi.map(fighter => {
 console.log("Fase 2 - allenamento;", allenamento)
 
 
-
+// Fase 3: qualificazione
+// Filtro solo i fighter con power abbastanza alta (>= 2000) per passare al torneo
 const qualificazione = allenamento.filter(fighter => fighter.power >= 2000)
 
 console.log("Fase 3 - qualificazione", qualificazione);
 
 
 if (qualificazione.length % 2 !== 0) {
+    // Se la condizione è vera aggiungo un nuovo oggetto all'array qualificazione
     qualificazione.push({
         name: "robot",
         weapon: "laser",
@@ -153,7 +161,9 @@ if (qualificazione.length % 2 !== 0) {
 
 //console.log(qualificazione.length);
 
-
+// Fase 4: scontri e vincitori
+// Accoppio i partecipanti a due a due (i, i+1) e selezioni chi ha la power maggiore.
+// Push i vincitori in un array.
 const vincitori = []
 
 
@@ -172,8 +182,10 @@ for (let i = 0; i < qualificazione.length; i = i + 2) {
 console.log("Fase 4 - tutti i vincitori del torneo", vincitori);
 
 
+// Fase 5: podio
+// Clono l'array dei vincitori (per non mutarlo) e lo ordino per power decrescente.
 const premiazione = [...vincitori]
-
+// Prendo i primi 3 per ottenere il podio.
 const podio = premiazione.sort((a, b) => b.power - a.power).slice(0, 3)
 
 
