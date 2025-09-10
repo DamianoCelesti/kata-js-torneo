@@ -103,7 +103,7 @@ const weapons = [
 
 
 // Fase 1: assegnazione armi
-// Per ogni fighter associo un arma a caso (senza rimetterla nel pool) e sommiamo i power
+// Per ogni fighter associo un arma a caso (senza rimetterla nel pool) e sommo il power aram con power fighter
 const assegnazioneArmi = fighters.map(fighter => {
     // Calcolo numero random
     const indiceRandom = Math.floor(Math.random() * weapons.length)
@@ -162,15 +162,14 @@ if (qualificazione.length % 2 !== 0) {
 //console.log(qualificazione.length);
 
 // Fase 4: scontri e vincitori
-// Accoppio i partecipanti a due a due (i, i+1) e selezioni chi ha la power maggiore.
-// Push i vincitori in un array.
+// Creo array vuoto
 const vincitori = []
 
-
+// Accoppio i partecipanti a due a due
 for (let i = 0; i < qualificazione.length; i = i + 2) {
     let partecipanteCasa = qualificazione[i]
     let partecipanteOspite = qualificazione[i + 1]
-
+    // Push i vincitori in un array
     if (partecipanteCasa.power >= partecipanteOspite.power) {
         vincitori.push(partecipanteCasa)
     } else {
